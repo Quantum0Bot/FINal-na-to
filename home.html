@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-wrapper">
+                <img src="schoollogo.png" alt="Logo" class="nav-logo-img">
+                <h1 class="nav-logo-text">ProjectSentinelX</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="#home" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="Map.html" class="nav-link">Map</a></li>
+                <li class="nav-item"><a href="Whattodo.html" class="nav-link">What To Do</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="home" class="hero-section bgmap-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Welcome to ProjectSentinelX</h1>
+                <div class="rectangle-container">
+                    <div class="rectangle home-rectangle">
+                        <video id="homeVideo" controls loop>
+                            <source src="ProjectSentinelLoop.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+                <div class="hero-buttons">
+                    <a href="Map.html" class="btn btn-primary">Explore Map</a>
+                    <a href="Whattodo.html" class="btn btn-secondary">What To Do</a>
+                </div>
+            </div>
+            <div class="features-container">
+                <div class="feature-card weather-display">
+                    <h3>Real-time Weather</h3>
+                    <p>the time and weather</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Interactive Map</h3>
+                    <p>Navigate through rooms and buildings with disaster modes.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Safety Guidelines</h3>
+                    <p>Learn what to do in various emergency situations.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        async function updateWeatherAndDate() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+
+            // Fetch real weather data from OpenWeatherMap for Manila, Philippines
+            const apiKey = 'YOUR_OPENWEATHERMAP_API_KEY'; // Replace with your OpenWeatherMap API key (free tier available)
+            const city = 'Manila';
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const weatherDescription = data.weather[0].description;
+                const temperature = Math.round(data.main.temp);
+                const weather = `${weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1)}, ${temperature}°C`;
+
+                const weatherDisplay = document.querySelector('.weather-display');
+                weatherDisplay.innerHTML = `
+                    <div class="weather-item"><span class="label">Weather:</span> ${weather}</div>
+                    <div class="time-item"><span class="label">Time:</span> ${time}</div>
+                `;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                // Fallback to mock data
+                const weather = "Clear, 25°C";
+                const weatherDisplay = document.querySelector('.weather-display');
+                weatherDisplay.innerHTML = `
+                    <div class="weather-item"><span class="label">Weather:</span> ${weather}</div>
+                    <div class="time-item"><span class="label">Time:</span> ${time}</div>
+                `;
+            }
+        }
+
+        updateWeatherAndDate();
+        setInterval(updateWeatherAndDate, 1000); // Update every second
+
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                location.reload();
+            }
+        });
+
+        window.addEventListener('focus', function() {
+            location.reload();
+        });
+    </script>
+</body>
+</html>

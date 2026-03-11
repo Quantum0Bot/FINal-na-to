@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <title>Map - ProjectSentinelX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-wrapper">
+                <img src="schoollogo.png" alt="Logo" class="nav-logo-img">
+                <h1 class="nav-logo-text">ProjectSentinelX</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="home.html" class="nav-link">Home</a></li>
+                <li class="nav-item active"><a href="Map.html" class="nav-link">Map</a></li>
+                <li class="nav-item"><a href="Whattodo.html" class="nav-link">What To Do</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="map" class="map-section bgmap-section">
+            <div class="zoom-controls">
+                <button class="zoom-btn" onclick="zoomIn()" title="Zoom In">+</button>
+                <button class="zoom-btn" onclick="zoomOut()" title="Zoom Out">-</button>
+            </div>
+            <div class="map-header">
+                <h1 class="map-title">Interactive Disaster Map</h1>
+                <p class="map-subtitle">Navigate through rooms and buildings with real-time disaster risk assessment</p>
+            </div>
+            <div class="map-container">
+                <div class="left-panel">
+                    <div class="circle-container">
+                        <div class="circle">Flood</div>
+                        <div class="circle">Fire</div>
+                        <div class="circle">Quake</div>
+                        <div class="circle">Storm</div>
+                    </div>
+                </div>
+                <div class="big-rectangle">
+                    <div id="r1" class="room" data-room="1"></div>
+                    <div id="r2" class="room" data-room="2"></div>
+                    <div id="r3" class="room" data-room="3"></div>
+                    <div id="r4" class="room" data-room="4"></div>
+                    <div id="r5" class="room" data-room="5"></div>
+                    <div id="r6" class="room" data-room="6"></div>
+                    <div id="r7" class="room" data-room="7"></div>
+                    <div id="r8" class="room" data-room="8"></div>
+                    <div id="r9" class="room" data-room="9"></div>
+                    <div id="r10" class="room" data-room="10"></div>
+                    <div id="r11" class="room" data-room="11"></div>
+                    <div id="r12" class="room" data-room="12"></div>
+                    <div id="r13" class="room" data-room="13"></div>
+                    <div id="r14" class="room" data-room="14"></div>
+                    <div id="r15" class="room" data-room="15"></div>
+                    <div id="r16" class="room" data-room="16"></div>
+                    <div id="r17" class="room" data-room="17"></div>
+                    <div id="r18" class="room" data-room="18"></div>
+                    <div id="r19" class="room" data-room="19"></div>
+                    <div id="r20" class="room" data-room="20"></div>
+                    <div id="r21" class="room" data-room="21"></div>
+                    <div id="r22" class="room" data-room="22"></div>
+                    <div id="r23" class="room" data-room="23"></div>
+                    <div id="r24" class="room" data-room="24"></div>
+                    <div id="r25" class="room" data-room="25"></div>
+                    <div id="r26" class="room" data-room="26"></div>
+                    <div id="r27" class="room" data-room="27"></div>
+                    <div id="r28" class="room" data-room="28"></div>
+                    <div id="r29" class="room" data-room="29"></div>
+                    <div id="r30" class="room" data-room="30"></div>
+                    <div id="r31" class="room" data-room="31"></div>
+                    <div id="r32" class="room" data-room="32"></div>
+                    <div id="r33" class="room" data-room="33"></div>
+                    <div id="r34" class="room" data-room="34"></div>
+                    <div id="r35" class="room" data-room="35"></div>
+                    <div id="r36" class="room" data-room="36"></div>
+                    <div id="r37" class="room" data-room="37"></div>
+                    <div id="r38" class="room" data-room="38"></div>
+                    <div id="r39" class="room" data-room="39"></div>
+                    <div id="r40" class="room" data-room="40"></div>
+                    <div id="r41" class="room" data-room="41"></div>
+                </div>
+                <div class="right-panel">
+                    <h3 class="panel-title">Risk Legend</h3>
+                    <div class="legend-container">
+                        <div class="legend-item">
+                            <div class="legend-square green"></div>
+                            <span>Low Risk</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square yellow"></div>
+                            <span>Moderate Risk</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square orange"></div>
+                            <span>High Risk</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-square red"></div>
+                            <span>Very High Risk</span>
+                        </div>
+                    </div>
+                    <h3 class="panel-title">View Modes</h3>
+                    <div class="mode-buttons">
+                        <button id="room-btn" class="mode-button">Rooms</button>
+                        <button id="building-btn" class="mode-button">Buildings</button>
+                        <button id="floor-btn" class="mode-button">Floor</button>
+                        <button id="safe-zone-btn" class="mode-button">Safe Zone</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div id="popup" class="popup-overlay">
+        <div class="popup-box">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <div class="popup-content">
+                <div class="carousel">
+                    <img id="carousel-img" src="" alt="">
+                    <div class="carousel-buttons">
+                        <button onclick="prevImage()" aria-label="Previous image"></button>
+                        <button onclick="nextImage()" aria-label="Next image"></button>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3 id="info-title"></h3>
+                    <p id="info-text"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let weatherInterval;
+        
+        async function updateWeatherAndDate() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+
+            // Fetch real weather data from wttr.in for Manila, Philippines (no API key required)
+            const city = 'Manila';
+            const url = `https://wttr.in/${city}?format=j1`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const currentCondition = data.current_condition[0];
+                const weatherDescription = currentCondition.weatherDesc[0].value;
+                const temperature = Math.round(parseFloat(currentCondition.temp_C));
+                const weather = `${weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1)}, ${temperature}°C`;
+
+                document.getElementById('weather-date').innerHTML = `
+                    <div>Weather: ${weather}</div>
+                    <div>Date: ${date}</div>
+                    <div>Time: ${time}</div>
+                `;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                // Fallback to mock data
+                const weather = "Clear, 25°C";
+                document.getElementById('weather-date').innerHTML = `
+                    <div>Weather: ${weather}</div>
+                    <div>Date: ${date}</div>
+                    <div>Time: ${time}</div>
+                `;
+            }
+        }
+
+        function startWeatherUpdate() {
+            // Clear any existing content first to prevent duplicates
+            const weatherEl = document.getElementById('weather-date');
+            if (weatherEl) {
+                weatherEl.innerHTML = '';
+            }
+            updateWeatherAndDate();
+            weatherInterval = setInterval(updateWeatherAndDate, 1000);
+        }
+        
+        function stopWeatherUpdate() {
+            if (weatherInterval) {
+                clearInterval(weatherInterval);
+                weatherInterval = null;
+            }
+        }
+
+        startWeatherUpdate();
+
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                location.reload();
+            }
+        });
+
+        window.addEventListener('focus', function() {
+            location.reload();
+        });
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>

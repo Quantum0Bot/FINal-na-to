@@ -1,0 +1,3 @@
+- [ ] Update navigation in home.html: Make Home link to home.html (active), Map to index.html.
+- [ ] Update navigation in index.html: HOME link to home.html, MAP active.
+- [ ] Update TODO.md: Remove the task about whattodo.html image.

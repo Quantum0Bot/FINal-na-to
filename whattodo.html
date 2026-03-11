@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What To Do - ProjectSentinelX</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-wrapper">
+                <img src="schoollogo.png" alt="Logo" class="nav-logo-img">
+                <h1 class="nav-logo-text">ProjectSentinelX</h1>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="home.html" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="Map.html" class="nav-link">Map</a></li>
+                <li class="nav-item active"><a href="Whattodo.html" class="nav-link">What To Do</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main>
+        <section id="whattodo" class="bgmap-section">
+            <h1>What To Do During Emergencies</h1>
+            <p class="section-description">Stay prepared and know the right actions to take during different emergency situations in the Philippines.</p>
+
+            <div class="emergency-container">
+                <div class="emergency-card" onclick="showInfo('flood')">
+                    <div class="emergency-icon">🌊</div>
+                    <h3>Flood</h3>
+                </div>
+
+                <div class="emergency-card" onclick="showInfo('typhoon')">
+                    <div class="emergency-icon">🌪️</div>
+                    <h3>Storm</h3>
+                </div>
+
+                <div class="emergency-card" onclick="showInfo('earthquake')">
+                    <div class="emergency-icon">🌋</div>
+                    <h3>Quake</h3>
+                </div>
+
+                <div class="emergency-card" onclick="showInfo('fire')">
+                    <div class="emergency-icon">🔥</div>
+                    <h3>Fire</h3>
+                </div>
+
+                <div class="emergency-card" onclick="showInfo('poweroutage')">
+                    <div class="emergency-icon">⚡</div>
+                    <h3>Power Outage</h3>
+                </div>
+
+                <div class="emergency-card" onclick="showInfo('general')">
+                    <div class="emergency-icon">🚨</div>
+                    <h3>General</h3>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Emergency Info -->
+    <div id="emergencyModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <p id="modalText"></p>
+        </div>
+    </div>
+
+    <script>
+        async function updateWeatherAndDate() {
+            const now = new Date();
+            const date = now.toLocaleDateString();
+            const time = now.toLocaleTimeString();
+
+            // Fetch real weather data from wttr.in for Manila, Philippines (no API key required)
+            const city = 'Manila';
+            const url = `https://wttr.in/${city}?format=j1`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const weatherDescription = data.weather[0].description;
+                const temperature = Math.round(data.main.temp);
+                const weather = `${weatherDescription.charAt(0).toUpperCase() + weatherDescription.slice(1)}, ${temperature}°C`;
+
+                document.getElementById('weather-date').innerHTML = `
+                    <div>Weather: ${weather}</div>
+                    <div>Date: ${date}</div>
+                    <div>Time: ${time}</div>
+                `;
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+                // Fallback to mock data
+                const weather = "Clear, 25°C";
+                document.getElementById('weather-date').innerHTML = `
+                    <div>Weather: ${weather}</div>
+                    <div>Date: ${date}</div>
+                    <div>Time: ${time}</div>
+                `;
+            }
+        }
+
+        updateWeatherAndDate();
+        setInterval(updateWeatherAndDate, 1000); // Update every second
+
+        document.addEventListener('visibilitychange', function() {
+            if (!document.hidden) {
+                location.reload();
+            }
+        });
+
+        window.addEventListener('focus', function() {
+            location.reload();
+        });
+    </script>
+    <script src="script.js"></script>
+    <script>
+        const emergencyInfo = {
+            flood: {
+                title: "🌊 Flood",
+                text: "A flood occurs when a large amount of water covers land that is normally dry. This often happens because of continuous heavy rainfall, overflowing rivers, damaged drainage systems, or strong storms such as typhoons. In many communities, floods can develop quickly and become very dangerous if people are not prepared. When floodwaters start rising, the most important action is to move to higher ground immediately and stay away from areas where water is rapidly increasing. People should never walk, swim, or drive through floodwaters because the water may be deeper or faster than it looks. Even shallow water can knock a person off balance, and moving water can carry vehicles away. Floodwater may also hide sharp objects, open manholes, or electrical hazards that can cause serious injuries. In addition, floodwater is often contaminated with mud, sewage, and harmful bacteria that may lead to infections or diseases. It is important to listen to local authorities and follow evacuation instructions when they are given. Families should prepare in advance by identifying safe evacuation areas, keeping important items in waterproof containers, and having emergency supplies ready. Staying informed through radio, television, or mobile alerts can help people respond quickly and safely during flooding situations."
+            },
+            typhoon: {
+                title: "🌪️ Typhoon (Storm)",
+                text: "A typhoon is a powerful tropical storm that forms over warm ocean waters and brings very strong winds, heavy rainfall, thunder, and sometimes flooding or storm surges in coastal areas. Typhoons can cause significant damage to homes, buildings, roads, and power lines, making them one of the most dangerous natural disasters in many regions. When a typhoon is approaching, people should prepare early by securing their homes and gathering essential supplies. During the storm, it is safest to remain indoors and stay away from windows, glass doors, or weak structures that might break because of strong winds. Flying debris such as branches, metal sheets, or other loose objects can become dangerous projectiles during high winds. Before the typhoon arrives, people should tie down or bring inside loose outdoor items like flower pots, tools, or light furniture to prevent them from being blown away. It is also important to prepare an emergency kit that contains clean drinking water, ready-to-eat food, flashlights, extra batteries, a first aid kit, and necessary medicines. Keeping mobile phones charged and monitoring weather updates from trusted sources can help families know when it is safe to go outside or if evacuation is necessary. Staying calm and following official instructions can help reduce injuries and damage during a typhoon."
+            },
+            earthquake: {
+                title: "🌋 Earthquake",
+                text: "An earthquake is a sudden shaking of the ground caused by the movement of tectonic plates beneath the Earth's surface. Earthquakes can happen without warning and may last only a few seconds, but they can still cause serious damage to buildings, roads, and other structures. During an earthquake, the safest action to take is the method known as Drop, Cover, and Hold On. This means dropping down to the ground to prevent being knocked over, taking cover under a strong table or desk to protect the head and body from falling objects, and holding on until the shaking stops. If someone is inside a building, they should stay away from windows, glass, shelves, or heavy furniture that could fall. Running outside during strong shaking can be dangerous because debris may fall from buildings. If a person is already outdoors when an earthquake occurs, they should move to a wide open area away from buildings, trees, streetlights, and power lines that could collapse. After the shaking ends, people should carefully check their surroundings and avoid damaged structures. It is also important to expect aftershocks, which are smaller earthquakes that may occur minutes or even hours later. Being prepared with emergency plans and safety knowledge can help protect lives during earthquakes."
+            },
+            fire: {
+                title: "🔥 Fire",
+                text: "Fire is a dangerous emergency that can start suddenly and spread very quickly, especially in places with flammable materials such as wood, paper, cloth, or fuel. Fires can produce intense heat and thick smoke that makes it difficult to see and breathe. Because of this, every second is important when responding to a fire emergency. When a fire is detected, people should evacuate immediately using the nearest safe exit without stopping to gather personal belongings. Delaying evacuation can increase the risk of being trapped or injured. If smoke is present, crawling close to the floor is recommended because the air near the ground is usually cleaner and easier to breathe. People should cover their noses and mouths with a cloth if possible to reduce smoke inhalation. Once outside, everyone should move to a safe distance away from the building and make sure all members of the household or group are accounted for. Emergency services should be contacted right away to handle the situation. It is extremely important never to return inside a burning building because conditions can change rapidly and become life-threatening. Practicing fire drills, installing smoke alarms, and knowing the location of emergency exits can help people respond quickly and safely during a fire."
+            },
+            poweroutage: {
+                title: "⚡ Power Outage",
+                text: "A power outage occurs when the supply of electricity is suddenly interrupted due to damaged power lines, severe weather conditions, equipment failure, or maintenance issues. Although power outages may not always seem dangerous, they can still create several problems for households and communities. Without electricity, lights, appliances, communication devices, and refrigeration systems may stop working. During a power outage, people should use flashlights or battery-powered lamps instead of candles to reduce the risk of accidental fires. Candles can easily tip over or ignite nearby materials, especially in dark environments. It is also advisable to unplug sensitive electronic devices such as televisions, computers, and chargers to prevent damage when electricity suddenly returns. Keeping refrigerator and freezer doors closed can help preserve food for a longer period. Having a battery-powered radio or a fully charged mobile phone is useful for receiving news and emergency announcements. Families should also conserve battery power by limiting unnecessary device use. Being prepared with backup lighting, spare batteries, and emergency supplies can make power outages easier to manage until electricity is restored."
+            },
+            general: {
+                title: "🚨 General Safety Tips",
+                text: "Being prepared for emergencies is one of the best ways to reduce risks and protect lives. Every family should create a simple emergency plan that explains what to do and where to go during different types of disasters. Preparing an emergency kit is also very important. This kit should include clean drinking water, non-perishable food, a flashlight, extra batteries, a first aid kit, medicines, a whistle, and copies of important documents stored in waterproof containers. Families should know the evacuation routes in their community and identify safe places where they can stay if their homes become unsafe. Practicing emergency drills at home or in school can help everyone remember the correct actions during real emergencies. During any disaster, it is important to stay calm and think clearly so that good decisions can be made quickly. Helping others, especially children, elderly people, and individuals with disabilities, can make a big difference in keeping everyone safe. Following instructions from local authorities and emergency responders is also essential because they are trained to guide communities during dangerous situations. Being informed, prepared, and cooperative helps communities recover more quickly after emergencies."
+            }
+        };
+
+        function showInfo(type) {
+            const modal = document.getElementById('emergencyModal');
+            const title = document.getElementById('modalTitle');
+            const text = document.getElementById('modalText');
+            
+            if (emergencyInfo[type]) {
+                title.textContent = emergencyInfo[type].title;
+                text.textContent = emergencyInfo[type].text;
+                modal.style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('emergencyModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('emergencyModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
